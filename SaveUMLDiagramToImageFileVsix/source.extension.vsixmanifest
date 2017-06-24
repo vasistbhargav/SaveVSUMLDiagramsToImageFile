@@ -1,20 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="SaveUMLDiagramToImageFileVsix..a12b9c07-046c-4557-94c2-a8eded7d1c5c" Version="1.1" Language="en-US" Publisher="B.W. Staal" />
-    <DisplayName>Save UML Diagram To Image File 2015</DisplayName>
-    <Description xml:space="preserve">Save UML Diagrams To Image Files for Visual Studio 2015 Enterprise</Description>
+    <Identity Id="SaveLayerDiagramToImageFileVsix.c91e4a92-74ee-4fea-bbc4-0db6e77a31d4" Version="1.0" Language="en-US" Publisher="B.W. Staal" />
+    <DisplayName>Save Layer Diagram To Image File 2017</DisplayName>
+    <Description xml:space="preserve">Save Layer Diagrams To Image Files for Visual Studio 2017 Enterprise</Description>
     <PreviewImage>PreviewImage.png</PreviewImage>
     <Tags>Modeling, Diagrams, UML, Architecture</Tags>
   </Metadata>
   <Installation>
-    <InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.Enterprise" />
+    <InstallationTarget Version="[15.0,16.0)" Id="Microsoft.VisualStudio.Enterprise" />
   </Installation>
   <Dependencies>
-    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-    <Dependency d:Source="Installed" Id="Microsoft.VisualStudio.MPF.14.0" DisplayName="Visual Studio MPF 14.0" Version="[14.0,15.0)" d:InstallSource="Download" />
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.6,)" d:InstallSource="Download" />
+    <Dependency d:Source="Installed" Id="Microsoft.VisualStudio.MPF.15.0" DisplayName="Visual Studio MPF 15.0" Version="[15.0,16.0)" d:InstallSource="Download" />
   </Dependencies>
   <Assets>
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="SaveUMLDiagramToImageFileCommandExtension" Path="|SaveUMLDiagramToImageFileCommandExtension|" />
   </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0.26208.0,16.0)" DisplayName="Visual Studio core editor" />
+    <Prerequisite Id="Microsoft.VisualStudio.ComponentGroup.ArchitectureTools.Managed" Version="[15.0.26208.0,16.0)" DisplayName="Architecture and analysis tools" />
+  </Prerequisites>
 </PackageManifest>

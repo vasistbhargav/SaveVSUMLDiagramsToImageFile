@@ -7,9 +7,7 @@ using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.ExtensionEnablement;
 using Microsoft.VisualStudio.ArchitectureTools.Extensibility.Presentation;
-using Microsoft.VisualStudio.ArchitectureTools.Extensibility.Uml;
 using Microsoft.VisualStudio.ArchitectureTools.Extensibility.Layer;
-using Microsoft.VisualStudio.Uml.Diagrams;
 
 namespace SaveUMLDiagramToImageFileCommandExtension
 {
@@ -18,11 +16,6 @@ namespace SaveUMLDiagramToImageFileCommandExtension
     /// </summary>
     // Context menu command applicable to any UML diagram
     [Export(typeof(ICommandExtension))]
-    [ClassDesignerExtension]
-    [UseCaseDesignerExtension]
-    [SequenceDesignerExtension]
-    [ComponentDesignerExtension]
-    [ActivityDesignerExtension]
     [LayerDesignerExtension]
     public class CommandExtension : ICommandExtension
     {
@@ -34,11 +27,11 @@ namespace SaveUMLDiagramToImageFileCommandExtension
         public void Execute(IMenuCommand command)
         {
             // Get the diagram of the underlying implementation.
-            Diagram dslDiagram = Context.CurrentDiagram.GetObject<Diagram>();
-            if (dslDiagram == null) return;
+            IDiagram currentIDiagram = Context.CurrentDiagram.GetObject<IDiagram>();
+            Diagram diagram = Context.CurrentDiagram.GetObject<Diagram>();
+            if (currentIDiagram == null || diagram == null) return;
 
-            //var type = dslDiagram.ModelElement.GetType();
-            var model = dslDiagram.ModelElement as RootModel;
+            ILayerModel model = currentIDiagram.GetLayerModel();
             SaveFileDialog dialog = GetSaveDialog();
 
             if (model != null)
@@ -52,14 +45,14 @@ namespace SaveUMLDiagramToImageFileCommandExtension
                     case 1:
                     case 2:
                     case 4:
-                        Bitmap bitmap = dslDiagram.CreateBitmap(
-                            dslDiagram.NestedChildShapes,
-                            Diagram.CreateBitmapPreference.FavorClarityOverSmallSize);
+                        Bitmap bitmap = diagram.CreateBitmap(
+                            diagram.NestedChildShapes,
+                            Microsoft.VisualStudio.Modeling.Diagrams.Diagram.CreateBitmapPreference.FavorClarityOverSmallSize);
                         bitmap.Save(imageFileName, GetImageType(imageFileName));
                         break;
                     case 3:
-                        Metafile metafile = dslDiagram.CreateMetafile(
-                            dslDiagram.NestedChildShapes);
+                        Metafile metafile = diagram.CreateMetafile(
+                            diagram.NestedChildShapes);
                         metafile.Save(imageFileName, GetImageType(imageFileName));
                         break;
                 }
